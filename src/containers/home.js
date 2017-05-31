@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {increaseRisk} from '../actions';
+import {increaseRisk, fetchRiskLevel} from '../actions';
+import _ from 'lodash';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
+
+  renderLevel() {
+    return _.map(this.props.riskLevel, level => {
+        return (
+          <div>{level}</div>
+        )
+    })
   }
 
-  componentDidMount() {
+  increaseLevel() {
     this.props.increaseRisk();
   }
 
   render() {
     return(
       <div>
-          Hello World from Home Container!!! 
+          Hello World from Home Container!!
+          {this.renderLevel()}
+          <button onClick={this.increaseLevel.bind(this)}>Increase</button>
       </div>
     )
   }
 }
 
-export default connect(null, {increaseRisk})(Home);
+function mapStateToProps(state) {
+  return {riskLevel: state.riskLevel}
+}
+
+export default connect(mapStateToProps, {increaseRisk, fetchRiskLevel})(Home);
