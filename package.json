@@ -1,0 +1,22 @@
+{
+  "name": "bright",
+  "version": "1.0.0",
+  "description": "Financial Advisory SaaS",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekhoang23/Bright.git"
+  },
+  "keywords": [
+    "interview"
+  ],
+  "author": "Derek Hoang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derekhoang23/Bright/issues"
+  },
+  "homepage": "https://github.com/derekhoang23/Bright#readme"
+}
