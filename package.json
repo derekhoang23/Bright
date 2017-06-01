@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --watch",
     "test": "test",
+    "hot": "webpack-dev-server --hot",
     "start-dev": "webpack-dev-server --config webpack.config.js --progress --colors"
   },
   "repository": {
@@ -30,7 +31,8 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -40,6 +42,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
+    "json-loader": "^0.5.4",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   }

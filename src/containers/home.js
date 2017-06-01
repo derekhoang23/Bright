@@ -1,35 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {increaseRisk, fetchRiskLevel} from '../actions';
+import {authIn, loadUserPortfolio} from '../actions';
 import _ from 'lodash';
+import json from '../users.json';
 
 class Home extends Component {
 
-  renderLevel() {
-    return _.map(this.props.riskLevel, level => {
-        return (
-          <div>{level}</div>
-        )
-    })
-  }
+componentWillMount() {
+ this.props.dispatch(authIn(this.props.authenticated));
+}
 
-  increaseLevel() {
-    this.props.increaseRisk();
-  }
+componentDidMount() {
+  this.props.dispatch(loadUserPortfolio(1, json))
+}
 
   render() {
     return(
       <div>
-          Hello World from Home Container!!
-          {this.renderLevel()}
-          <button onClick={this.increaseLevel.bind(this)}>Increase</button>
+          Hello World from Home Container!!ffrf4234324
       </div>
     )
   }
 }
 
+
 function mapStateToProps(state) {
-  return {riskLevel: state.riskLevel}
+  return {authenticated: state.authenticated}
 }
 
-export default connect(mapStateToProps, {increaseRisk, fetchRiskLevel})(Home);
+
+export default connect(mapStateToProps)(Home);

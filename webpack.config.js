@@ -17,13 +17,28 @@ const config = {
   context: APP_DIR,
   devtool: 'inline-source-map',
   module:{
-    rules: [{
+    rules: [
+      /*
+      {
      test: /\.(js|jsx)$/,
      use: [
           'babel-loader'
      ],
      exclude: /node_modules/
-   }]
+   }
+   */
+   {
+       test: /\.json$/,
+       use: 'json-loader'
+     },
+     {
+    test: /\.(js|jsx)$/,
+    use:
+         'babel-loader'
+    ,
+    exclude: /node_modules/
+  }
+ ]
  },
  plugins: [
    new webpack.HotModuleReplacementPlugin(),

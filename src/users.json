@@ -1,0 +1,35 @@
+[ {
+    "id": 1,
+    "name": "Derek Hoang",
+    "portfolio": {
+      "total": 500000,
+      "cds": 100000,
+      "bonds": 100000,
+      "realestate": 100000,
+      "stocks": 100000,
+      "horsebetting": 100000
+    },
+    "portfoliopercent": 50,
+    "income": 300000,
+    "assets": 1000000,
+    "mortgage": 500000,
+    "expenses": 100000
+  },
+  {
+    "id": 2,
+    "name": "Go Warriors",
+    "portfolio": {
+      "total": 500000,
+      "cds": 100000,
+      "bonds": 100000,
+      "realestate": 100000,
+      "stocks": 100000,
+      "horsebetting": 100000
+    },
+    "portfoliopercent": 50,
+    "income": 300000,
+    "assets": 1000000,
+    "mortgage": 500000,
+    "expenses": 100000
+  }
+]
