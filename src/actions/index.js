@@ -3,6 +3,7 @@ export const FETCH_RISKLEVEL = 'fetch_riskLevel';
 export const FETCH_PORTFOLIO = 'fetch_portfolio';
 export const ADD_CDS = 'add_cds';
 export const IS_AUTH = 'is_intial';
+export const NAV_PORTFOLIODETAILS = 'nav_portfoliodetails';
 import _ from 'lodash';
 
 export function increaseRisk() {
@@ -15,6 +16,13 @@ function authenticated(authState) {
   return {
     type: IS_AUTH,
     payload: !authState
+  }
+}
+
+export function atPortfolioDetails(navItem) {
+  return {
+    type: NAV_PORTFOLIODETAILS,
+    payload: navItem
   }
 }
 
@@ -37,16 +45,16 @@ export function addCds(action) {
   }
 }
 
-export function fetchRiskLevel() {
+function fetchRiskLevel(risklevelJson) {
   return {
-    type: FETCH_RISKLEVEL
+    type: FETCH_RISKLEVEL,
+    risklevel: risklevelJson.risk
   }
 }
 
 function fetchPortfolio(portfolioJson) {
   return {
     type: FETCH_PORTFOLIO,
-    total: portfolioJson.total,
     cds: portfolioJson.cds,
     USBonds: portfolioJson.bonds,
     RealEstate: portfolioJson.realestate,
@@ -55,17 +63,23 @@ function fetchPortfolio(portfolioJson) {
   }
 }
 
+export function loadRiskLevel(userId, json) {
+  return (dispatch, getState) => {
+    const userData = json.filter(data => {
+        return data.id === userId
+    })
+    dispatch(fetchRiskLevel(userData[0]))
+  }
+}
+
 
 
 export function loadUserPortfolio(userId, json) {
   return (dispatch, getState) => {
     if (getState().authenticated) {
-      console.log('id', userId);
-      console.log('data', json)
       const userData = json.filter(data => {
           return data.id === userId
       })
-      console.log('userda', userData[0])
       dispatch(fetchPortfolio(userData[0].portfolio));
     } else {
       return Promise.resolve();

@@ -2,13 +2,14 @@
     "id": 1,
     "name": "Derek Hoang",
     "portfolio": {
-      "total": 500000,
       "cds": 100000,
       "bonds": 100000,
       "realestate": 100000,
       "stocks": 100000,
       "horsebetting": 100000
     },
+    "risk": 5,
+    "portfoliototal": 500000,
     "portfoliopercent": 50,
     "income": 300000,
     "assets": 1000000,

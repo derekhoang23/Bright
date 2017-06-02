@@ -27,9 +27,11 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "^3.0.0-beta.7",
+    "react-rangeslider": "^2.0.1",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "recharts": "^1.0.0-alpha.0",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0"
@@ -42,8 +44,12 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.0",
     "json-loader": "^0.5.4",
+    "style-loader": "^0.18.1",
     "webpack": "^2.6.1",
+    "webpack-combine-loaders": "^2.0.3",
     "webpack-dev-server": "^2.4.5"
   }
 }
