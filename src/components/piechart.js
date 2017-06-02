@@ -139,17 +139,17 @@ class Demo extends Component {
     })
     return (
       <div className="pie-charts">
-        <a
+        {/* <a
           href="javascript: void(0);"
           className="btn update"
           onClick={this.handleChangeData}
         >
           change data
-        </a>
+        </a> */}
         <br/>
         <p>Portfolio</p>
         <div className="pie-chart-wrapper">
-          <PieChart width={1200} height={1000} >
+          <PieChart width={1200} height={800} >
             <Legend />
             <Pie
               data={result}

@@ -13,9 +13,9 @@ class Routes extends Component {
     return (
       <BrowserRouter>
         <div>
-            <Route exact path='/' component={Nav} />
-            <Route exact path="/" component={Home} />
-            {/* <Route exact path="/details" component={FinanceDetails} /> */}
+            <Route path='/' component={Nav} />
+            <Route exact path="/Home" component={Home} />
+            <Route exact path="/portfoliodetails" component={FinanceDetails} />
         </div>
       </BrowserRouter>
     )

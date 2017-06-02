@@ -5,7 +5,7 @@ export function nav(state = ["Home", "Portfolio Details", "Log Out", "User"], ac
   let newArray = state.slice();
   switch(action.type) {
     case NAV_PORTFOLIODETAILS:
-      newArray.splice(action.index, 0, action.item);
+      // newArray.splice(newArray.indexOf(action.item), 1);
       return newArray;
       default:
       return newArray;

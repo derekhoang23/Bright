@@ -7,8 +7,8 @@ class Nav extends Component {
 
   render(){
     // console.log(this.props.nav)
-    const renderNavItems = this.props.nav.map(navItem => {
-      return <li className={`NavBarItems ${navItem}`} ><Link to={`/${navItem}`}>{navItem}</Link></li>
+    const renderNavItems = this.props.nav.map((navItem, index) => {
+      return <li key={index} className={`NavBarItems ${navItem.split(' ').join('')}`} ><Link to={`/${navItem.split(' ').join('')}`}>{navItem}</Link></li>
     })
     return (
       <div className='NavbarContainer'>
