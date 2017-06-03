@@ -5,6 +5,10 @@ export const ADD_CDS = 'add_cds';
 export const IS_AUTH = 'is_intial';
 export const NAV_PORTFOLIODETAILS = 'nav_portfoliodetails';
 export const CHANGE_RISK ='change_risk';
+export const LOW_RISK = 'low_risk';
+export const MEDIUM_RISK = 'medium_risk';
+export const HIGH_RISK = 'high_risk';
+export const FETCH_PORTFOLIO_TOTAL = 'fetch_portfolio_total';
 import _ from 'lodash';
 
 export function increaseRisk() {
@@ -60,6 +64,104 @@ function fetchRiskLevel(risklevelJson) {
   }
 }
 
+
+
+export function loadRiskLevel(userId, json) {
+  return (dispatch, getState) => {
+    const userData = json.filter(data => {
+        return data.id === userId
+    })
+    dispatch(fetchRiskLevel(userData[0]))
+  }
+}
+
+export function calculateRisk(level) {
+  return (dispatch, getState) => {
+    if (level < 4 && level > 0) {
+      // console.log('state', getState.portfolioTotal)
+      lowRisk(level, getState().portfolioTotal);
+    } else if (level > 4 && 8 > level) {
+      dispatch(mediumRisk(level, getState().portfolioTotal))
+    } else if (level > 7) {
+      dispatch(highRisk(level, getState().portfolioTotal));
+    }
+  }
+}
+
+function lowRisk(level, total) {
+  // 500,000
+  console.log('level', level, 'total', total)
+  let sum = 0
+  const horse = total * .10; // 50,000
+  total -= horse;
+  sum += horse;
+  const stocks = (total * .20) - horse; // 440,000
+  total -= stocks;
+  sum += stocks;
+  const estate = (total * .30) - stocks;
+  total -= estate;
+  sum += estate;
+  const bonds = (total * .40)- estate
+  total -= bonds;
+  sum += bonds;
+  const cds = total;
+  total -= cds;
+  sum += cds;
+  // horsebetting: total x .10
+  // usstocks: total - hoursebetting x .20
+  // realestate: total - usstocks x .30
+  // usbonds: total - realestate x .40
+  // cds: total - usbonds
+  if (sum - total === sum) {
+    console.log('is this true')
+    return {
+      typep: LOW_RISK,
+      cdsp: cds,
+      USBondsp: bonds,
+      RealEstatep: estate,
+      USStocksp: stocks,
+      HorseBettingp: horse,
+    }
+  }
+}
+
+// function lowRisk(level, total) {
+//
+//   return {
+//     type: LOW_RISK,
+//     cds: portfolioJson.cds,
+//     USBonds: portfolioJson.bonds,
+//     RealEstate: portfolioJson.realestate,
+//     USStocks: portfolioJson.stocks,
+//     HorseBetting: portfolioJson.horsebetting
+//   }
+// }
+
+
+function mediumRisk(level, total) {
+
+  return {
+    type: MEDIUM_RISK,
+    cds: portfolioJson.cds,
+    USBonds: portfolioJson.bonds,
+    RealEstate: portfolioJson.realestate,
+    USStocks: portfolioJson.stocks,
+    HorseBetting: portfolioJson.horsebetting
+  }
+}
+
+function highRisk(level, total) {
+  return {
+    type: HIGH_RISK,
+    cds: portfolioJson.cds,
+    USBonds: portfolioJson.bonds,
+    RealEstate: portfolioJson.realestate,
+    USStocks: portfolioJson.stocks,
+    HorseBetting: portfolioJson.horsebetting
+  }
+}
+
+
 function fetchPortfolio(portfolioJson) {
   return {
     type: FETCH_PORTFOLIO,
@@ -71,15 +173,18 @@ function fetchPortfolio(portfolioJson) {
   }
 }
 
-export function loadRiskLevel(userId, json) {
-  return (dispatch, getState) => {
-    const userData = json.filter(data => {
-        return data.id === userId
-    })
-    dispatch(fetchRiskLevel(userData[0]))
+function loadPortfolioTotal(total) {
+  return {
+    type: FETCH_PORTFOLIO_TOTAL,
+    payload: total
   }
 }
 
+export function fetchPortfolioTotal(total) {
+  return (dispatch) => {
+    dispatch(loadPortfolioTotal(total))
+  }
+}
 
 
 export function loadUserPortfolio(userId, json) {
@@ -90,7 +195,7 @@ export function loadUserPortfolio(userId, json) {
       })
       dispatch(fetchPortfolio(userData[0].portfolio));
     } else {
-      return Promise.resolve();
+      Promise.resolve();
     }
   }
 }

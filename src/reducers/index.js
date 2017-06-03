@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 // import RiskReducer from './reducer_riskLevel';
-import {auth, portfolio} from './reducer_account';
+import {auth, portfolio, portfolioTotal} from './reducer_account';
 import {nav} from './reducer_nav';
 import {risklevel} from './reducer_riskLevel';
 
 const rootReducer = combineReducers({
+  portfolioTotal: portfolioTotal,
   risklevel: risklevel,
   nav: nav,
   authenticated: auth,

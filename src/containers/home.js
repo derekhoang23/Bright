@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {authIn, loadUserPortfolio, loadRiskLevel, changeRisk} from '../actions';
+import {authIn, loadUserPortfolio, loadRiskLevel, changeRisk, calculateRisk, fetchPortfolioTotal } from '../actions';
 import _ from 'lodash';
 import json from '../users.json';
 import Demo from '../components/piechart';
@@ -22,13 +22,21 @@ setSliderVal(val) {
 
 }
 
+handleSubmit() {
+    this.props.dispatch(calculateRisk(this.props.risklevel))
+}
+
 componentDidMount() {
+
   this.props.dispatch(loadUserPortfolio(1, json));
-  this.props.dispatch(loadRiskLevel(1, json))
+  this.props.dispatch(loadRiskLevel(1, json));
+  this.props.dispatch(fetchPortfolioTotal(json[0].portfoliototal));
+  // this.props.fetchPortfolioTotal(json[0].total);
 
 }
 
   render() {
+    console.log('type', typeof this.props.risklevel)
     return(
       <div className="HomeContainer">
         <div className='slider-container'>
@@ -36,6 +44,7 @@ componentDidMount() {
           <div className='slider-value'>Risk Level: {this.props.risklevel}</div>
 
         </div>
+        <button className='submit-risk' onClick={this.handleSubmit.bind(this)}>Submit</button>
           Pie chart demo
             <Demo />
           {/* <div className="range-slider">
