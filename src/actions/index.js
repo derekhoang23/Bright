@@ -78,19 +78,20 @@ export function loadRiskLevel(userId, json) {
 export function calculateRisk(level) {
   return (dispatch, getState) => {
     if (level < 4 && level > 0) {
-      // console.log('state', getState.portfolioTotal)
-      lowRisk(level, getState().portfolioTotal);
+      dispatch(lowRisk(level, getState().portfolioTotal));
     } else if (level > 4 && 8 > level) {
       dispatch(mediumRisk(level, getState().portfolioTotal))
-    } else if (level > 7) {
+    }
+    else if (level > 7) {
       dispatch(highRisk(level, getState().portfolioTotal));
+    } else {
+      Promise.resolve();
     }
   }
 }
 
 function lowRisk(level, total) {
   // 500,000
-  console.log('level', level, 'total', total)
   let sum = 0
   const horse = total * .10; // 50,000
   total -= horse;
@@ -115,50 +116,61 @@ function lowRisk(level, total) {
   if (sum - total === sum) {
     console.log('is this true')
     return {
-      typep: LOW_RISK,
-      cdsp: cds,
-      USBondsp: bonds,
-      RealEstatep: estate,
-      USStocksp: stocks,
-      HorseBettingp: horse,
+      type: LOW_RISK,
+      cds: cds,
+      USBonds: bonds,
+      RealEstate: estate,
+      USStocks: stocks,
+      HorseBetting: horse,
     }
   }
 }
 
-// function lowRisk(level, total) {
-//
-//   return {
-//     type: LOW_RISK,
-//     cds: portfolioJson.cds,
-//     USBonds: portfolioJson.bonds,
-//     RealEstate: portfolioJson.realestate,
-//     USStocks: portfolioJson.stocks,
-//     HorseBetting: portfolioJson.horsebetting
-//   }
-// }
-
-
 function mediumRisk(level, total) {
-
-  return {
-    type: MEDIUM_RISK,
-    cds: portfolioJson.cds,
-    USBonds: portfolioJson.bonds,
-    RealEstate: portfolioJson.realestate,
-    USStocks: portfolioJson.stocks,
-    HorseBetting: portfolioJson.horsebetting
-  }
+    return {
+      type: MEDIUM_RISK,
+      cds: total * .20,
+      USBonds: total * .20,
+      RealEstate: total * .20,
+      USStocks: total * .20,
+      HorseBetting: total * .20,
+    }
 }
 
 function highRisk(level, total) {
-  return {
-    type: HIGH_RISK,
-    cds: portfolioJson.cds,
-    USBonds: portfolioJson.bonds,
-    RealEstate: portfolioJson.realestate,
-    USStocks: portfolioJson.stocks,
-    HorseBetting: portfolioJson.horsebetting
-  }
+    let sum = 0
+    const horse = total * .40; // 50,000
+    total -= horse;
+    sum += horse;
+    const stocks = (total * .30) // 440,000
+    total -= stocks;
+    sum += stocks;
+    const estate = (total * .20);
+    total -= estate;
+    sum += estate;
+    const bonds = (total * .10)
+    total -= bonds;
+    sum += bonds;
+    const cds = total;
+    total -= cds;
+    sum += cds;
+    console.log('sum', sum, 'others', horse, stocks, estate, bonds, cds);
+    // horsebetting: total x .10
+    // usstocks: total - hoursebetting x .20
+    // realestate: total - usstocks x .30
+    // usbonds: total - realestate x .40
+    // cds: total - usbonds
+    if (sum - total === sum) {
+      console.log('is this true high risk')
+      return {
+        type: HIGH_RISK,
+        cds: cds,
+        USBonds: bonds,
+        RealEstate: estate,
+        USStocks: stocks,
+        HorseBetting: horse,
+      }
+    }
 }
 
 

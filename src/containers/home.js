@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import {authIn, loadUserPortfolio, loadRiskLevel, changeRisk, calculateRisk, fetchPortfolioTotal } from '../actions';
 import _ from 'lodash';
 import json from '../users.json';
@@ -17,12 +18,12 @@ componentWillMount() {
 }
 
 setSliderVal(val) {
-  console.log('val', val);
   this.props.dispatch(changeRisk(val))
-
+  this.props.dispatch(calculateRisk(val));
 }
 
 handleSubmit() {
+    console.log('submit', this.props.risklevel);
     this.props.dispatch(calculateRisk(this.props.risklevel))
 }
 
@@ -36,15 +37,15 @@ componentDidMount() {
 }
 
   render() {
-    console.log('type', typeof this.props.risklevel)
     return(
       <div className="HomeContainer">
         <div className='slider-container'>
-          <Slider min={0} max={10} value={this.props.risklevel} onChange={this.setSliderVal.bind(this)}/>
+          <Slider min={1} max={10} value={this.props.risklevel} onChange={this.setSliderVal.bind(this)}/>
           <div className='slider-value'>Risk Level: {this.props.risklevel}</div>
 
         </div>
-        <button className='submit-risk' onClick={this.handleSubmit.bind(this)}>Submit</button>
+        <Link to='/portfoliodetails' onClick={this.handleSubmit.bind(this)} >Submit</Link>
+        {/* <button className='submit-risk' onClick={this.handleSubmit.bind(this)}><Link to='/portfoliodetails' />Submit</button> */}
           Pie chart demo
             <Demo />
           {/* <div className="range-slider">
