@@ -147,7 +147,7 @@ class Demo extends Component {
           change data
         </a> */}
         <br/>
-        <p>Portfolio</p>
+        <p className='pie-chart-title' >Portfolio</p>
         <div className="pie-chart-wrapper">
           <PieChart width={1200} height={800} >
             <Legend />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import NavbarItems from '../components/navbarItems';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import styles from '../style.css';
+import style from '../style.css';
 class Nav extends Component {
 
   render(){

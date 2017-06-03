@@ -4,12 +4,20 @@ export const FETCH_PORTFOLIO = 'fetch_portfolio';
 export const ADD_CDS = 'add_cds';
 export const IS_AUTH = 'is_intial';
 export const NAV_PORTFOLIODETAILS = 'nav_portfoliodetails';
+export const CHANGE_RISK ='change_risk';
 import _ from 'lodash';
 
 export function increaseRisk() {
   return {
     type: INCREASE_RISK
   };
+}
+
+export function changeRisk(level) {
+  return {
+    type: CHANGE_RISK,
+    payload: level
+  }
 }
 
 function authenticated(authState) {

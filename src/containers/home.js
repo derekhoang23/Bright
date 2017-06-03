@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {authIn, loadUserPortfolio, loadRiskLevel} from '../actions';
+import {authIn, loadUserPortfolio, loadRiskLevel, changeRisk} from '../actions';
 import _ from 'lodash';
 import json from '../users.json';
 import Demo from '../components/piechart';
+import Slider from 'rc-slider';
+import sliderStyle from 'rc-slider/assets/index.css';
 import styles from '../style.css';
 
 class Home extends Component {
@@ -14,7 +16,9 @@ componentWillMount() {
 
 }
 
-setSliderVal() {
+setSliderVal(val) {
+  console.log('val', val);
+  this.props.dispatch(changeRisk(val))
 
 }
 
@@ -26,13 +30,18 @@ componentDidMount() {
 
   render() {
     return(
-      <div>
+      <div className="HomeContainer">
+        <div className='slider-container'>
+          <Slider min={0} max={10} value={this.props.risklevel} onChange={this.setSliderVal.bind(this)}/>
+          <div className='slider-value'>Risk Level: {this.props.risklevel}</div>
+
+        </div>
           Pie chart demo
-          <Demo />
-          <div className="range-slider">
+            <Demo />
+          {/* <div className="range-slider">
             <input onChange={this.setSliderVal.bind(this)} className="range-slider__range" type="range" value={this.props.risklevel} min="0" max="10" />
             <span className="range-slider__value">{this.props.risklevel}</span>
-          </div>
+          </div> */}
       </div>
     )
   }

@@ -42,7 +42,7 @@ const config = {
   {
       test: /\.css$/,
       use: ['style-loader', 'css-loader'],
-      include: __dirname + '/src'
+      include: [__dirname + '/src', __dirname + '/node_modules/rc-slider/assets']
   }
  ]
  },
