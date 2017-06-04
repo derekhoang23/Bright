@@ -26,3 +26,4 @@ Things that should be done, but not enough time:
 . currently selectively injecting css files to any React component, this speeds development
 . action types could be move onto one file to make it cleaner
 . action creators can be filed better according to their functionality and which state they update
+. css needs to be updated to be responsive to devices and width
