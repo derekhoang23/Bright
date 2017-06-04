@@ -1,3 +1,5 @@
+// These const Action Types should be moved to different file
+
 export const INCREASE_RISK = 'increase_risk';
 export const FETCH_RISKLEVEL = 'fetch_riskLevel';
 export const FETCH_PORTFOLIO = 'fetch_portfolio';
@@ -8,8 +10,12 @@ export const CHANGE_RISK ='change_risk';
 export const LOW_RISK = 'low_risk';
 export const MEDIUM_RISK = 'medium_risk';
 export const HIGH_RISK = 'high_risk';
+export const UPDATE_PORTFOLIO = 'update_portfolio';
 export const FETCH_PORTFOLIO_TOTAL = 'fetch_portfolio_total';
 import _ from 'lodash';
+
+// Group these action creaters to different file according to which
+// state they are updating.
 
 export function increaseRisk() {
   return {
@@ -50,12 +56,6 @@ export function authIn() {
   }
 }
 
-export function addCds(action) {
-  return {
-    type: ADD_CDS,
-    payload: action.payload
-  }
-}
 
 function fetchRiskLevel(risklevelJson) {
   return {
@@ -90,31 +90,14 @@ export function calculateRisk(level) {
   }
 }
 
+
 function lowRisk(level, total) {
-  // 500,000
-  let sum = 0
-  const horse = total * .10; // 50,000
-  total -= horse;
-  sum += horse;
-  const stocks = (total * .20) - horse; // 440,000
-  total -= stocks;
-  sum += stocks;
-  const estate = (total * .30) - stocks;
-  total -= estate;
-  sum += estate;
-  const bonds = (total * .40)- estate
-  total -= bonds;
-  sum += bonds;
-  const cds = total;
-  total -= cds;
-  sum += cds;
-  // horsebetting: total x .10
-  // usstocks: total - hoursebetting x .20
-  // realestate: total - usstocks x .30
-  // usbonds: total - realestate x .40
-  // cds: total - usbonds
-  if (sum - total === sum) {
-    console.log('is this true')
+  const horse = total * .35;
+  const stocks = total * .25;
+  const estate = total * .20;
+  const bonds = total * .15;
+  const cds = total * .05;
+
     return {
       type: LOW_RISK,
       cds: cds,
@@ -123,7 +106,6 @@ function lowRisk(level, total) {
       USStocks: stocks,
       HorseBetting: horse,
     }
-  }
 }
 
 function mediumRisk(level, total) {
@@ -138,30 +120,12 @@ function mediumRisk(level, total) {
 }
 
 function highRisk(level, total) {
-    let sum = 0
-    const horse = total * .40; // 50,000
-    total -= horse;
-    sum += horse;
-    const stocks = (total * .30) // 440,000
-    total -= stocks;
-    sum += stocks;
+    const horse = total * .35;
+    const stocks = (total * .25);
     const estate = (total * .20);
-    total -= estate;
-    sum += estate;
-    const bonds = (total * .10)
-    total -= bonds;
-    sum += bonds;
-    const cds = total;
-    total -= cds;
-    sum += cds;
-    console.log('sum', sum, 'others', horse, stocks, estate, bonds, cds);
-    // horsebetting: total x .10
-    // usstocks: total - hoursebetting x .20
-    // realestate: total - usstocks x .30
-    // usbonds: total - realestate x .40
-    // cds: total - usbonds
-    if (sum - total === sum) {
-      console.log('is this true high risk')
+    const bonds = (total * .15);
+    const cds = total * .05;
+
       return {
         type: HIGH_RISK,
         cds: cds,
@@ -170,7 +134,6 @@ function highRisk(level, total) {
         USStocks: stocks,
         HorseBetting: horse,
       }
-    }
 }
 
 
@@ -182,6 +145,28 @@ function fetchPortfolio(portfolioJson) {
     RealEstate: portfolioJson.realestate,
     USStocks: portfolioJson.stocks,
     HorseBetting: portfolioJson.horsebetting
+  }
+}
+
+function upDatingPortfolio(newPortfolio) {
+  return {
+    type: UPDATE_PORTFOLIO,
+    cds: newPortfolio.cds,
+    USBonds: newPortfolio.bonds,
+    RealEstate: newPortfolio.realestate,
+    USStocks: newPortfolio.stocks,
+    HorseBetting: newPortfolio.horsebetting
+  }
+}
+
+export function updatePortfolio(newPortfolio) {
+  // need to update json here or home component will still recevie
+  // data from json, in reality this needs to be sent to server to
+  // update DB
+  return (dispatch, setState) => {
+    if (setState().portfolio !== newPortfolio) {
+      dispatch(upDatingPortfolio(newPortfolio))
+    }
   }
 }
 

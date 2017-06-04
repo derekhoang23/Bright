@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {connect } from 'react-redux';
+import barstyles from '../bar.css';
+
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 //TODO: chnage data with portfolio data
@@ -12,21 +15,34 @@ const data = [
       {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
 ];
 
+
+
 class DemoBar extends Component {
 	render () {
+    const result1 = Object.keys(this.props.portfolio).map(key => {
+      return {name: key, Current: this.props.portfolio[key], Target: this.props.portfolioChange[key]}
+    })
+    console.log('bar', result1)
   	return (
-    	<BarChart width={600} height={300} data={data}
+    	<BarChart width={800} height={600} data={result1}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
        <XAxis dataKey="name"/>
        <YAxis/>
        <CartesianGrid strokeDasharray="3 3"/>
        <Tooltip/>
        <Legend />
-       <Bar dataKey="pv" fill="#8884d8" />
-       <Bar dataKey="uv" fill="#82ca9d" />
+       <Bar dataKey="Current" fill="#8884d8" />
+       <Bar dataKey="Target" fill="#82ca9d" />
       </BarChart>
     );
   }
 }
 
-export default DemoBar;
+function mapStateToProps(state) {
+  return {
+    portfolio: state.portfolio,
+    portfolioChange: state.portfolioChange
+  }
+}
+
+export default connect(mapStateToProps)(DemoBar);

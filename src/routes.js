@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Link, Route, NavLink } from 'react-router-dom';
 // import { Switch } from 'react-router';
 import Home from './containers/home';
-import FinanceDetails from './containers/financeDetails';
+import PortfolioDetails from './containers/portfolioDetails';
 import Nav from './containers/navbar';
 
 
@@ -14,8 +14,9 @@ class Routes extends Component {
       <BrowserRouter>
         <div>
             <Route path='/' component={Nav} />
-            <Route exact path="/Home" component={Home} />
-            <Route exact path="/portfoliodetails" component={FinanceDetails} />
+            <Route exact path="/" component={Home} />
+            <Route exact path='/home' component={Home} />
+            <Route exact path="/portfoliodetails" component={PortfolioDetails} />
         </div>
       </BrowserRouter>
     )
